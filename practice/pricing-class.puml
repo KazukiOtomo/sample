@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package domain.pricing{
+    class Master{
+        + pricing() : Merchandice
+    }
+
+    class Stock{
+        - suggestedprice : SuggestedPrice
+    }
+
+    class Merchandice{
+        - regularPrice : RegularPrice
+    }
+
+    class SuggestedPrice{
+        - value : int
+    }
+
+    class RegularPrice{
+        - value : int
+    }
+
+    Stock <--x Master :値段をつける <
+
+    Stock "1" -- "1" Merchandice
+}
+
+@enduml
