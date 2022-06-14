@@ -1,4 +1,4 @@
-package jp.ac.chitose.domain.survey.create;
+package org.example.survey.create;
 
 public class Administer {
 

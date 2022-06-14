@@ -1,4 +1,4 @@
-package jp.ac.chitose.domain.survey.conduct;
+package org.example.survey.conduct;
 
 public interface ConductableSurveyReferenceRepository {
 

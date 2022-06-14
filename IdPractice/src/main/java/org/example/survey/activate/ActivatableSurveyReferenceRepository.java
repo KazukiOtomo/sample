@@ -1,4 +1,4 @@
-package jp.ac.chitose.domain.survey.activate;
+package org.example.survey.activate;
 
 public interface ActivatableSurveyReferenceRepository {
 

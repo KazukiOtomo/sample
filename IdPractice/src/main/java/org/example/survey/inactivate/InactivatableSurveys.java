@@ -1,4 +1,4 @@
-package jp.ac.chitose.domain.survey.inactivate;
+package org.example.survey.inactivate;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package jp.ac.chitose.domain.survey.activate;
+package org.example.survey.activate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
