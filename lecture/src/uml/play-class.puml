@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+skinparam defaultFontName Cica
+
+package domain.play {
+
+    class Dealer {
+        -hand : Hand
+        --
+        +draw() : Hand
+        +holing() : Card
+    }
+
+    class Player {
+        -hand : Hand
+        --
+        +draw() : Hand
+        +open() : Hand
+    }
+
+    class Hand {
+        -cards : List<Card>
+    }
+
+    class Card {
+        -number : Number
+        -mark : Mark
+    }
+
+    class HoleCard{
+
+    }
+
+    Card --> HoleCard
+    HoleCard "1"--"1" Dealer
+
+    Hand "1" --o "1" Player
+    Hand "1" --o "1" Dealer
+    Card "1..." --o "1" Hand
+
+    class Number {
+        -value : int
+    }
+
+    enum Mark {
+        SPADE
+        DIAMOND
+        CLOVER
+        HEART
+    }
+
+    Mark "1" --o "1" Card
+    Number "1" --o "1" Card
+
+    class Deck {
+        -cards : List<Card>
+        --
+        +pop() : Card
+    }
+
+    Card "0...48" --o "1" Deck
+}
+@enduml

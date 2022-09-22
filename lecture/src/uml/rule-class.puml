@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+skinparam defaultFontName Cica
+
+package domain.rule {
+
+}
+
+@enduml

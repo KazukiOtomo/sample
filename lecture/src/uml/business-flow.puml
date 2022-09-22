@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/ja/activity-diagram-beta
+
+!theme mars
+skinparam defaultFontName Cica
+
+|ディーラー|
+:二枚ずつカードを配る;
+:カードを一枚公開する;
+|#AntiqueWhite|プレイヤー|
+:配られたカードを見る;
+:カードを追加で引くか決める;
+|ディーラー|
+:カードを全て公開する;
+:合計が17以上になるまでカードを引く;
+:勝敗を判定する;
+
+@enduml

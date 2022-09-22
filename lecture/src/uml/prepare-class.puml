@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+skinparam defaultFontName Cica
+
+package domain.prepare {
+
+    class Dealer {
+        -hand : Hand
+        --
+    }
+
+    class Player {
+        -hand : Hand
+        --
+    }
+
+    class Hand {
+        -cards : List<Card>
+    }
+
+    class Card {
+        -number : Number
+        -mark : Mark
+    }
+
+    Hand "1" --o "1" Player
+    Hand "1" --o "1" Dealer
+    Card "2" --o "1" Hand
+
+    class Number {
+        -value : int
+    }
+
+    enum Mark {
+        SPADE
+        DIAMOND
+        CLOVER
+        HEART
+    }
+
+    Mark "1" --o "1" Card
+    Number "1" --o "1" Card
+
+    class Deck {
+        -cards : List<Card>
+        --
+        +pop() : Card
+    }
+
+    Card "52-4 = 48..." --o "1" Deck
+}
+@enduml
