@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class Field {
 
-    private final Deck deck;
-    private final Player player;
-    private final Dealer dealer;
+    final Deck deck;
+    final Player player;
+    final Dealer dealer;
 
     public Field() {
         this.deck = new Deck();

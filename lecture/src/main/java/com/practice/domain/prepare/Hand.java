@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Hand {
 
-    private List<Card> cards;
+    final List<Card> cards;
 
     public Hand(Deck deck) {
         this.cards = new ArrayList<>();

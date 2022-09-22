@@ -1,6 +1,7 @@
 package com.practice.domain.prepare;
 
 public class Card {
+
     final Number number;
     final Mark mark;
 
