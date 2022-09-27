@@ -1,5 +1,8 @@
 package com.practice.domain.prepare;
 
+import lombok.Getter;
+
+@Getter
 public class Card {
 
     final Number number;

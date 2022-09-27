@@ -1,10 +1,18 @@
 package com.practice.domain.prepare;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
 
+    static final int FIRST_CARD_NUMBER = 2;
+
+    /**
+     * ここにGetterをつけたくない（でもJacksonの都合上つけなきゃいけない）
+     */
+    @Getter
     final List<Card> cards;
 
     public Hand(Deck deck) {
@@ -13,7 +21,7 @@ public class Hand {
     }
 
     private void init(Deck deck) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < FIRST_CARD_NUMBER; i++) {
             cards.add(deck.pop());
         }
     }
