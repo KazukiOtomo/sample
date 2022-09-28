@@ -3,6 +3,7 @@ package com.practice.domain.prepare;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -13,6 +14,7 @@ public class Deck {
     public Deck() {
         this.cards = new ArrayList<>();
         generate();
+        Collections.shuffle(cards);
     }
 
     private void generate() {
