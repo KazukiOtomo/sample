@@ -20,12 +20,12 @@ public class PrepareRepository implements IPrepareRepository {
     }
 
     @Override
-    public void register(final Field field) throws JsonProcessingException {
+    public int register(final Field field) throws JsonProcessingException {
         var sql = """
                 INSERT INTO initial_hand 
                 VALUES (?, ?)
                 """;
-        jdbc.update(sql,
+        return jdbc.update(sql,
                 mapper.writeValueAsString(field.getDealer()), mapper.writeValueAsString(field.getPlayer()));
     }
 
