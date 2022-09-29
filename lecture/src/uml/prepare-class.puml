@@ -8,11 +8,13 @@ package domain.prepare {
     class Dealer {
         -hand : Hand
         --
+        +getHolecard():Card
     }
 
     class Player {
         -hand : Hand
         --
+        +getHand():Hand
     }
 
     class Hand {
@@ -22,6 +24,8 @@ package domain.prepare {
     class Card {
         -number : Number
         -mark : Mark
+        --
+        +getContent():String
     }
 
     Hand "1" --o "1" Player
@@ -48,6 +52,6 @@ package domain.prepare {
         +pop() : Card
     }
 
-    Card "52-4 = 48..." --o "1" Deck
+    Card "48" --o "1" Deck
 }
 @enduml

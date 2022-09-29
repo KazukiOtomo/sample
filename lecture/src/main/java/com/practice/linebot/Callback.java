@@ -7,6 +7,7 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import com.practice.domain.prepare.IPrepareService;
+import com.practice.linebot.replier.Prepare;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,11 @@ public class Callback {
     public Message handleMessage(MessageEvent<TextMessageContent> event) throws JsonProcessingException {
         var message = event.getMessage().getText();
         switch (message) {
-            case "準備":
-                var field = prepareService.prepare();
-                prepareService.register(field);
-                return null;
+            case "開始":
+                var prepare = new Prepare(event, prepareService);
+                return prepare.reply();
+            case "ヒット":
+
         }
         return null;
     }

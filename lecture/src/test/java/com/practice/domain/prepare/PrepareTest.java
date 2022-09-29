@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
@@ -16,10 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PrepareTest {
 
     final IPrepareRepository prepareRepository;
+    final IPrepareService prepareService;
 
     @Autowired
-    public PrepareTest(IPrepareRepository prepareRepository) {
+    public PrepareTest(IPrepareRepository prepareRepository, IPrepareService prepareService) {
         this.prepareRepository = prepareRepository;
+        this.prepareService = prepareService;
     }
 
     @Test
@@ -27,7 +31,6 @@ public class PrepareTest {
         var field = new Field();
 
         assertEquals(field.getPlayer().getHand().size(), 2);
-        assertEquals(field.getDealer().getHand().size(), 2);
     }
 
     @Test
@@ -42,6 +45,17 @@ public class PrepareTest {
     void 初期状態をDBに格納する事ができている() throws JsonProcessingException {
         var flag = prepareRepository.register(new Field());
         assertEquals(flag, 1);
+    }
+
+    @Test
+    void PrepareコンテキストでのPlayerの手札情報が取得できる() {
+        var field = prepareService.prepare();
+
+        var playerContent = "プレイヤー側：\n" + field.getPlayer().getHand().getCards().stream()
+                .map(card -> card.getContent())
+                .collect(Collectors.joining("\n"));
+
+        System.out.println(playerContent);
     }
 
 }
