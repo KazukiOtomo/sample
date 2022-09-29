@@ -9,7 +9,6 @@ package domain.play {
         -hand : Hand
         --
         +draw() : Hand
-        +holing() : Card
     }
 
     class Player {
@@ -26,18 +25,13 @@ package domain.play {
     class Card {
         -number : Number
         -mark : Mark
+        --
+        +getContent():String
     }
-
-    class HoleCard{
-
-    }
-
-    Card --> HoleCard
-    HoleCard "1"--"1" Dealer
 
     Hand "1" --o "1" Player
     Hand "1" --o "1" Dealer
-    Card "1..." --o "1" Hand
+    Card "2..." --o "1" Hand
 
     class Number {
         -value : int
