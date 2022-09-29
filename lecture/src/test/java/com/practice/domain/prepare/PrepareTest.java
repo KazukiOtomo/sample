@@ -58,4 +58,13 @@ public class PrepareTest {
         System.out.println(playerContent);
     }
 
+    @Test
+    void Dealerの手札情報が１枚だけ公開されている() {
+        var field = prepareService.prepare();
+
+        var dealerContent = "ディーラー側：\n" + field.getDealer().getHoleCard().getContent();
+
+        System.out.println(dealerContent);
+    }
+
 }
