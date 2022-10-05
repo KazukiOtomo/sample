@@ -34,4 +34,16 @@ public class PlayTest {
 
     }
 
+    /**
+     * TODO:Json変換の途中で失敗しているぽい
+     * Getterは元々つけていた
+     * デフォルトコンストラクタを追加してもダメ
+     *
+     * @throws JsonProcessingException
+     */
+    @Test
+    void 判定直前時点でのお互いの手札の内容を記録できる() throws JsonProcessingException {
+        var flag = playRepository.registerResult(field);
+        assertEquals(flag, 1);
+    }
 }
