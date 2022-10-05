@@ -7,7 +7,7 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import com.practice.domain.prepare.IPrepareService;
-import com.practice.linebot.replier.Prepare;
+import com.practice.linebot.replier.PrepareMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class Callback {
         var message = event.getMessage().getText();
         switch (message) {
             case "開始":
-                var prepare = new Prepare(event, prepareService);
+                var prepare = new PrepareMessage(event, prepareService);
                 return prepare.reply();
             case "ヒット":
 

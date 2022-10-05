@@ -2,33 +2,31 @@ package com.practice.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.practice.domain.prepare.Field;
+import com.practice.domain.play.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PrepareRepository implements IPrepareRepository {
+public class PlayRepository implements IPlayRepository {
 
     final JdbcTemplate jdbc;
     final ObjectMapper mapper;
 
     @Autowired
-    public PrepareRepository(JdbcTemplate jdbc, ObjectMapper mapper) {
+    public PlayRepository(JdbcTemplate jdbc, ObjectMapper mapper) {
         this.jdbc = jdbc;
         this.mapper = mapper;
     }
 
     @Override
-    public int register(final Field field) throws JsonProcessingException {
+    public int registerResult(Field field) throws JsonProcessingException {
         var sql = """
-                INSERT INTO initial_hand 
+                INSERT INTO final_hand
                 VALUES (?, ?)
                 """;
         return jdbc.update(sql,
                 mapper.writeValueAsString(field.getDealer()),
                 mapper.writeValueAsString(field.getPlayer()));
     }
-
-
 }

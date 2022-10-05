@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.stream.Collectors;
 
-public class Prepare implements Replier {
+public class PrepareMessage implements Replier {
 
     final MessageEvent<TextMessageContent> event;
     final IPrepareService prepareService;
 
     @Autowired
-    public Prepare(MessageEvent<TextMessageContent> event, IPrepareService prepareService) {
+    public PrepareMessage(MessageEvent<TextMessageContent> event, IPrepareService prepareService) {
         this.event = event;
         this.prepareService = prepareService;
     }
@@ -34,7 +34,8 @@ public class Prepare implements Replier {
         var playerContent = "プレイヤー側：\n" +
                 field.getPlayer().getHand().getCards().stream()
                         .map(card -> card.getContent())
-                        .collect(Collectors.joining("\n"));
+                        .collect(Collectors.joining("\n")
+                        );
 
         var dealerContent = "ディーラー側：\n" +
                 field.getDealer().getHoleCard().getContent();

@@ -1,7 +1,10 @@
 package com.practice.domain.prepare;
 
+import lombok.Getter;
+
 public class Dealer {
 
+    @Getter
     final Hand hand;
 
     public Dealer(Deck deck) {
