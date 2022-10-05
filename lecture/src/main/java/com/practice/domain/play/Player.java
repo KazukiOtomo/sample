@@ -1,7 +1,9 @@
 package com.practice.domain.play;
 
 import com.practice.domain.prepare.Card;
+import lombok.Getter;
 
+@Getter
 public class Player {
 
     final Hand hand;
@@ -14,9 +16,5 @@ public class Player {
         var card = deck.pop();
         this.hand.cards.add(card);
         return card;
-    }
-
-    public Hand open() {
-        return this.hand;
     }
 }

@@ -1,9 +1,11 @@
 package com.practice.domain.play;
 
 import com.practice.domain.prepare.Card;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class Hand {
 
     final List<Card> cards;

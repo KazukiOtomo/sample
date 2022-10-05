@@ -31,7 +31,7 @@ public class PlayTest {
     @Test
     void プレイヤーがカードを追加で引くことができる() {
         playService.hit(this.playField);
-        assertEquals(this.playField.getPlayer().open().size(), 3);
+        assertEquals(this.playField.getPlayer().getHand().size(), 3);
     }
 
 }
