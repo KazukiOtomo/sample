@@ -1,7 +1,6 @@
 package com.practice.domain.play;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.practice.repository.IPlayRepository;
+import com.practice.domain.prepare.PrepareField;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,35 +14,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class PlayTest {
 
-    final IPlayRepository playRepository;
-    private Field field;
+    final IPlayService playService;
+    private PlayField playField;
 
     @Autowired
-    public PlayTest(IPlayRepository playRepository) {
-        this.playRepository = playRepository;
+    public PlayTest(IPlayService playService) {
+        this.playService = playService;
     }
 
     @BeforeEach
     void setup() {
-        var firstField = new com.practice.domain.prepare.Field();
-        this.field = new Field(firstField.getPlayer(), firstField.getDealer(), firstField.getDeck());
+        var firstField = new PrepareField();
+        this.playField = new PlayField(firstField);
     }
 
     @Test
-    void プレイヤーが引くかどうかを決定できる() {
-
+    void プレイヤーがカードを追加で引くことができる() {
+        playService.hit(this.playField);
+        assertEquals(this.playField.getPlayer().open().size(), 3);
     }
 
-    /**
-     * TODO:Json変換の途中で失敗しているぽい
-     * Getterは元々つけていた
-     * デフォルトコンストラクタを追加してもダメ
-     *
-     * @throws JsonProcessingException
-     */
-    @Test
-    void 判定直前時点でのお互いの手札の内容を記録できる() throws JsonProcessingException {
-        var flag = playRepository.registerResult(field);
-        assertEquals(flag, 1);
-    }
 }

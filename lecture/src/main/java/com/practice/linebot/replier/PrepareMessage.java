@@ -5,7 +5,7 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
-import com.practice.domain.prepare.Field;
+import com.practice.domain.prepare.PrepareField;
 import com.practice.domain.prepare.IPrepareService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,30 +15,31 @@ public class PrepareMessage implements Replier {
 
     final MessageEvent<TextMessageContent> event;
     final IPrepareService prepareService;
+    final PrepareField prepareField;
 
     @Autowired
-    public PrepareMessage(MessageEvent<TextMessageContent> event, IPrepareService prepareService) {
+    public PrepareMessage(MessageEvent<TextMessageContent> event, IPrepareService prepareService, PrepareField prepareField) {
         this.event = event;
         this.prepareService = prepareService;
+        this.prepareField = prepareField;
     }
 
     @Override
     public Message reply() throws JsonProcessingException {
-        var field = prepareService.prepare();
-        prepareService.register(field);
-        return new TextMessage(CreateMessage(field) +
+        prepareService.register(this.prepareField);
+        return new TextMessage(CreateMessage(this.prepareField) +
                 "\n");
     }
 
-    private String CreateMessage(Field field) {
+    private String CreateMessage(PrepareField prepareField) {
         var playerContent = "プレイヤー側：\n" +
-                field.getPlayer().getHand().getCards().stream()
+                prepareField.getPlayer().getHand().getCards().stream()
                         .map(card -> card.getContent())
                         .collect(Collectors.joining("\n")
                         );
 
         var dealerContent = "ディーラー側：\n" +
-                field.getDealer().getHoleCard().getContent();
+                prepareField.getDealer().getHoleCard().getContent();
 
         return playerContent + "\n" + dealerContent;
     }

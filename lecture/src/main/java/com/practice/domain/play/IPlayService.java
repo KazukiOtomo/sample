@@ -1,15 +1,14 @@
 package com.practice.domain.play;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.practice.domain.prepare.Card;
 
 public interface IPlayService {
 
     /**
-     * 判定直前での両者の手札の状況を記録する
+     * プレイヤーがカードを引く動作を行う
      *
-     * @return 更新回数
+     * @param playField
+     * @return 新しく引いたカード
      */
-    int registerResult(Field field) throws JsonProcessingException;
-
-
+    Card hit(PlayField playField);
 }

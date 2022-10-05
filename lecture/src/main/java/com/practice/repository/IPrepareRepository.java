@@ -1,10 +1,10 @@
 package com.practice.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.practice.domain.prepare.Field;
+import com.practice.domain.prepare.PrepareField;
 
 public interface IPrepareRepository {
 
-    int register(Field field) throws JsonProcessingException;
+    int register(PrepareField prepareField) throws JsonProcessingException;
 
 }

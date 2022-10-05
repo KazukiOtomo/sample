@@ -28,14 +28,14 @@ public class PrepareTest {
 
     @Test
     void ゲームを開始する準備が問題なくできている() {
-        var field = new Field();
+        var field = new PrepareField();
 
         assertEquals(field.getPlayer().getHand().size(), 2);
     }
 
     @Test
     void 手札の情報を正しいJson形式に変換できている() throws JsonProcessingException {
-        var field = new Field();
+        var field = new PrepareField();
         var mapper = new ObjectMapper();
         var s = mapper.writeValueAsString(field.getPlayer());
         System.out.println(s);
@@ -43,7 +43,7 @@ public class PrepareTest {
 
     @Test
     void 初期状態をDBに格納する事ができている() throws JsonProcessingException {
-        var flag = prepareRepository.register(new Field());
+        var flag = prepareRepository.register(new PrepareField());
         assertEquals(flag, 1);
     }
 

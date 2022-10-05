@@ -10,12 +10,12 @@ public interface IPrepareService {
      *
      * @return 準備済みのPlayer/Dealer,Deckが含まれたField
      */
-    Field prepare();
+    PrepareField prepare();
 
     /**
      * 準備段階での状態をDBに記録する
-     * @param field
+     * @param prepareField
      * @throws JsonProcessingException
      */
-    void register(Field field) throws JsonProcessingException;
+    void register(PrepareField prepareField) throws JsonProcessingException;
 }
