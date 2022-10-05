@@ -1,5 +1,9 @@
 package com.practice.domain.play;
 
+/**
+ * 判定ロジックは"複雑"なので、17を超えるまで引く動作はshowDownコンテキストに分離する
+ */
+
 public class Dealer {
 
     final Hand hand;
@@ -8,8 +12,4 @@ public class Dealer {
         this.hand = new Hand(dealer.getHand());
     }
 
-    public void draw(Deck deck) {
-        var card = deck.pop();
-        this.hand.cards.add(card);
-    }
 }

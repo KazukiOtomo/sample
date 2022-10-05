@@ -43,6 +43,8 @@ public class Callback {
             case "ヒット":
                 var hitMessage = new HitMessage(event, playService, this.prepareField);
                 return hitMessage.reply();
+            case "勝負":
+
         }
         return null;
     }
