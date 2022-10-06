@@ -13,4 +13,8 @@ public class Card {
         this.number = number;
         this.mark = mark;
     }
+
+    public String getContent() {
+        return this.mark.toString() + "," + this.getNumber().getValue();
+    }
 }

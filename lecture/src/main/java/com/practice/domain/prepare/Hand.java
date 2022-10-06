@@ -5,14 +5,11 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Hand {
 
     static final int FIRST_CARD_NUMBER = 2;
 
-    /**
-     * ここにGetterをつけたくない（でもJacksonの都合上つけなきゃいけない）
-     */
-    @Getter
     final List<Card> cards;
 
     public Hand(Deck deck) {

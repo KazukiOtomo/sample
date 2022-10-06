@@ -2,7 +2,7 @@ package com.practice.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.practice.domain.prepare.Field;
+import com.practice.domain.prepare.PrepareField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,13 +20,14 @@ public class PrepareRepository implements IPrepareRepository {
     }
 
     @Override
-    public void register(final Field field) throws JsonProcessingException {
+    public int register(final PrepareField prepareField) throws JsonProcessingException {
         var sql = """
                 INSERT INTO initial_hand 
                 VALUES (?, ?)
                 """;
-        jdbc.update(sql,
-                mapper.writeValueAsString(field.getDealer()), mapper.writeValueAsString(field.getPlayer()));
+        return jdbc.update(sql,
+                mapper.writeValueAsString(prepareField.getDealer()),
+                mapper.writeValueAsString(prepareField.getPlayer()));
     }
 
 

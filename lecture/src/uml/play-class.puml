@@ -4,18 +4,22 @@
 skinparam defaultFontName Cica
 
 package domain.play {
+    class Field{
+        -player : Player
+        -dealer : Dealer
+        -deck : Deck
+    }
 
     class Dealer {
         -hand : Hand
         --
-        +draw() : Hand
-        +holing() : Card
+        +draw(deck:Deck) : Hand
     }
 
     class Player {
         -hand : Hand
         --
-        +draw() : Hand
+        +draw(deck:Deck) : Hand
         +open() : Hand
     }
 
@@ -26,18 +30,13 @@ package domain.play {
     class Card {
         -number : Number
         -mark : Mark
+        --
+        +getContent():String
     }
-
-    class HoleCard{
-
-    }
-
-    Card --> HoleCard
-    HoleCard "1"--"1" Dealer
 
     Hand "1" --o "1" Player
     Hand "1" --o "1" Dealer
-    Card "1..." --o "1" Hand
+    Card "2..." --o "1" Hand
 
     class Number {
         -value : int
