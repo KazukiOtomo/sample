@@ -13,7 +13,7 @@ public interface IPrepareService {
     PrepareField prepare();
 
     /**
-     * 準備段階での状態をDBに記録する
+     * 準備段階でのお互いの手札の状態をDBに記録する
      * @param prepareField
      * @throws JsonProcessingException
      */

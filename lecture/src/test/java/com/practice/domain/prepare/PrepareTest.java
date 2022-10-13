@@ -52,7 +52,7 @@ public class PrepareTest {
         var field = prepareService.prepare();
 
         var playerContent = "プレイヤー側：\n" + field.getPlayer().getHand().getCards().stream()
-                .map(card -> card.getContent())
+                .map(card -> card.getMessageContent())
                 .collect(Collectors.joining("\n"));
 
         System.out.println(playerContent);
@@ -62,7 +62,7 @@ public class PrepareTest {
     void Dealerの手札情報が１枚だけ公開されている() {
         var field = prepareService.prepare();
 
-        var dealerContent = "ディーラー側：\n" + field.getDealer().getHoleCard().getContent();
+        var dealerContent = "ディーラー側：\n" + field.getDealer().getHoleCard().getMessageContent();
 
         System.out.println(dealerContent);
     }

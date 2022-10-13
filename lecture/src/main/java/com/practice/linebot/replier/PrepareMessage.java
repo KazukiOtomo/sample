@@ -34,12 +34,12 @@ public class PrepareMessage implements Replier {
     private String CreateMessage(PrepareField prepareField) {
         var playerContent = "プレイヤー側：\n" +
                 prepareField.getPlayer().getHand().getCards().stream()
-                        .map(card -> card.getContent())
+                        .map(card -> card.getMessageContent())
                         .collect(Collectors.joining("\n")
                         );
 
         var dealerContent = "ディーラー側：\n" +
-                prepareField.getDealer().getHoleCard().getContent();
+                prepareField.getDealer().getHoleCard().getMessageContent();
 
         return playerContent + "\n" + dealerContent;
     }

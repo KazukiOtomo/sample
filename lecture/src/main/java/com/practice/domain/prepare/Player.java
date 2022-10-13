@@ -1,14 +1,13 @@
 package com.practice.domain.prepare;
 
+import lombok.Getter;
+
+@Getter
 public class Player {
 
-    private final Hand hand;
+    final Hand hand;
 
-    public Player(Deck deck) {
+    public Player(final Deck deck) {
         this.hand = new Hand(deck);
-    }
-
-    public Hand getHand() {
-        return hand;
     }
 }
