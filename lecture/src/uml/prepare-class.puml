@@ -5,7 +5,12 @@ skinparam defaultFontName Cica
 
 package domain.prepare {
 
-    class Field {
+    interface IPrepareService{
+        prepare() : PrepareField
+        register(preparefield : PrepareField):void
+    }
+
+    class PrepareField {
         -player : Player
         -dealer : Dealer
         -deck : Deck
@@ -20,18 +25,20 @@ package domain.prepare {
     class Player {
         -hand : Hand
         --
-        +getHand():Hand
+        +getHand() : Hand
     }
 
     class Hand {
         -cards : List<Card>
+        --
+        +publishOneCard():Card
     }
 
     class Card {
         -number : Number
         -mark : Mark
         --
-        +getContent():String
+        +getMessageContent():String
     }
 
     Hand "1" --o "1" Player

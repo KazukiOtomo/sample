@@ -12,12 +12,12 @@ public class Hand {
 
     final List<Card> cards;
 
-    public Hand(Deck deck) {
+    public Hand(final Deck deck) {
         this.cards = new ArrayList<>();
         init(deck);
     }
 
-    private void init(Deck deck) {
+    private void init(final Deck deck) {
         for (int i = 0; i < FIRST_CARD_NUMBER; i++) {
             cards.add(deck.pop());
         }
@@ -25,5 +25,9 @@ public class Hand {
 
     public int size() {
         return cards.size();
+    }
+
+    public Card publishOneCard(){
+        return this.cards.get(0);
     }
 }
