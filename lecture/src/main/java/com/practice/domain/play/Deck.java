@@ -12,7 +12,7 @@ public class Deck {
         this.cards = deck.getCards();
     }
 
-    public Card pop() {
+    public Card getTop() {
         return this.cards.remove(0);
     }
 }

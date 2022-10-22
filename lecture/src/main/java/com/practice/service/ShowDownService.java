@@ -7,7 +7,7 @@ import com.practice.domain.showdown.ShowDownField;
 public class ShowDownService implements IShowDownService {
 
     @Override
-    public boolean culculate(ShowDownField showDownField) {
+    public boolean isPlayerWin(ShowDownField showDownField) {
         showDownField.getDealer().drawOver17(showDownField.getDeck());
         var isPlayerWin = JudgeRule.judgementWinner(showDownField);
         return isPlayerWin;

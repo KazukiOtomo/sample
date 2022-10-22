@@ -12,7 +12,7 @@ package domain.prepare {
 
     class PrepareField {
         -player : Player
-        -dealer : Dealer
+        -dealer : dealer
         -deck : Deck
     }
 

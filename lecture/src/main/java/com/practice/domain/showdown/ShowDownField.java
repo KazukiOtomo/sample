@@ -1,6 +1,7 @@
 package com.practice.domain.showdown;
 
 import com.practice.domain.play.Deck;
+import com.practice.domain.play.PlayField;
 import lombok.Getter;
 
 @Getter
@@ -10,10 +11,10 @@ public class ShowDownField {
     final Dealer dealer;
     final Deck deck;
 
-    public ShowDownField(com.practice.domain.play.Player player, com.practice.domain.play.Dealer dealer, Deck deck) {
-        this.player = new Player(player);
-        this.dealer = new Dealer(dealer);
-        this.deck = deck;
+    public ShowDownField(final PlayField playField) {
+        this.player = new Player(playField.getPlayer());
+        this.dealer = new Dealer(playField.getDealer());
+        this.deck = playField.getDeck();
     }
 
 }

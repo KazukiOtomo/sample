@@ -1,11 +1,9 @@
 package com.practice.domain.prepare;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-@Getter
 public class Hand {
 
     static final int FIRST_CARD_NUMBER = 2;
@@ -27,7 +25,12 @@ public class Hand {
         return cards.size();
     }
 
-    public Card publishOneCard(){
+    public Card publishOneCard() {
         return this.cards.get(0);
+    }
+
+    // 参照不可のリストにして返す
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
     }
 }

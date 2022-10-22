@@ -13,8 +13,8 @@ public class Player {
     }
 
     public Card draw(Deck deck) {
-        var card = deck.pop();
-        this.hand.cards.add(card);
+        var card = deck.getTop();
+        this.hand.add(card);
         return card;
     }
 }

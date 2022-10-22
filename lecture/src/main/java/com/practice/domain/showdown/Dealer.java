@@ -23,8 +23,7 @@ public class Dealer {
     }
 
     public void draw(Deck deck) {
-        var card = deck.pop();
+        var card = deck.getTop();
         this.hand.getCards().add(card);
-        return;
     }
 }

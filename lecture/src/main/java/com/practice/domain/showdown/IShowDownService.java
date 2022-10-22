@@ -7,5 +7,5 @@ public interface IShowDownService {
      * @param showDownField
      * @return
      */
-    boolean culculate(ShowDownField showDownField);
+    boolean isPlayerWin(ShowDownField showDownField);
 }

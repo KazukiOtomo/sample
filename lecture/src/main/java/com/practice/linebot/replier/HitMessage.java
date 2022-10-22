@@ -25,6 +25,6 @@ public class HitMessage implements Replier {
     @Override
     public Message reply() {
         var card = playService.hit(this.playField);
-        return new TextMessage("引いたカードは、\n" + card.getContent());
+        return new TextMessage("引いたカードは、\n" + card.getMessageContent());
     }
 }

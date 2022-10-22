@@ -1,12 +1,9 @@
 package com.practice.domain.prepare;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Getter
 public class Deck {
 
     final List<Card> cards;
@@ -27,5 +24,9 @@ public class Deck {
 
     public Card pop() {
         return this.cards.remove(0);
+    }
+
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
     }
 }
