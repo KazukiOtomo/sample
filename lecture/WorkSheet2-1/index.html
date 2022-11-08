@@ -1,0 +1,318 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>ソフトウェアデザイン第2回</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="WorkSheet2-1"
+                  title="ソフトウェアデザイン第2回"
+                  environment="web"
+                  feedback-link="https://github.com/KazukiOtomo">
+    
+      <google-codelab-step label="アクセス修飾子" duration="0">
+        <table>
+<tr><td colspan="1" rowspan="1"><p>アクセス修飾子</p>
+</td><td colspan="1" rowspan="1"><p>範囲</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>private　　</p>
+</td><td colspan="1" rowspan="1"><p>同一クラス</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>public</p>
+</td><td colspan="1" rowspan="1"><p>制限なし</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>protected　</p>
+</td><td colspan="1" rowspan="1"><p>同一パッケージ or 継承先のクラス</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>package private（デフォルト）</p>
+</td><td colspan="1" rowspan="1"><p>同一パッケージ</p>
+</td></tr>
+</table>
+<p>アクセス修飾子を付与すると、変数やメソッドの<strong>可視性</strong>を制御することができる。 <strong>可用性</strong>を気にして何でもpublicにすると、どこからでも触れるようになってしまうので、 <strong>密結合</strong>になりがちなので、privateあるいはpackage privateを利用するのを推奨する。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="演習１" duration="0">
+        <p>以下で示すコードには、複数の問題があります。</p>
+<p>コードに含まれている問題点を指摘した上で、 改善したクラスを作成してください。（改善箇所や方法は１つとは限りません）</p>
+<p>Card.java</p>
+<pre><code language="language-java" class="language-java">public class Card {
+
+    public String mark;
+    public int number;
+
+    public Card(String mark, int number) {
+            this.mark = mark;
+            this.number = number;
+    }
+}
+</code></pre>
+<p>Calculator.java</p>
+<pre><code language="language-java" class="language-java">public class Calculator {
+
+    /**
+     * 10以上の数字であれば10に変換して返すメソッド
+     * @param card　
+     * @return 1 ~ 10の整数
+     */
+    public static int getScore(Card card) {
+        if (card.number &gt; 10) card.number = 10;
+        return card.number;
+    }
+}
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Stream" duration="0">
+        <p>配列やListといった<strong>コレクションオブジェクト</strong>の要素に対して処理をかけたい場合、 今まではFor文や拡張For文を扱ってきたと思いますが、 Javaには<strong>Stream</strong>という、値の集合に対する処理を使い回す仕組みがあります。</p>
+<p>Streamを使った場合</p>
+<pre><code language="language-java" class="language-java">    var data = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3, 4, 5));
+    var filteredData = data.stream()
+                    .filter(e -&gt; e &lt; 3)
+                    .collect(Collectors.toList());
+
+    System.out.println(filteredData); // result : [1, 2]
+</code></pre>
+<p>For文で書いた場合</p>
+<pre><code language="language-java" class="language-java">    var data = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3, 4, 5));
+    var filteredList = new ArrayList&lt;&gt;();
+
+    for (var element : data) {
+        if (element &lt; 3) filteredList.add(element);
+    }
+
+    System.out.println(filteredList); // result : [1, 2]
+</code></pre>
+<p>Streamを使う大きなメリットとしては、可読性の向上が挙げられる。</p>
+<p>・Streamの場合</p>
+<pre><code>filter()を呼び出して、要素を抽出し、リストに変換して返している
+データの集合に対して、「フィルタをかけてくれ」といった宣言をしているだけ
+</code></pre>
+<p>・For文の場合</p>
+<pre><code>別のリストを作り、条件に引っかかった要素を別のリストにadd()している
+「実現するための操作方法」を実装している
+</code></pre>
+<p>「宣言的」な書き方をすると、細かい実装を隠蔽することができ、 コードから<strong>何がしたいのかという意図</strong>が理解しやすくできます。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="演習２" duration="0">
+        <p>以下に示すコードを読み取り、 SampleService.java内のsampleMethodの処理を完成させよ。</p>
+<p>Dog.java</p>
+<pre><code language="language-java" class="language-java">public class Dog {
+    private final String name;
+    private final int age;
+
+    public Dog(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+</code></pre>
+<p>Dogs.java</p>
+<pre><code language="language-java" class="language-java">public class Dogs {
+    private List&lt;Dog&gt; dogs;
+
+    public Dogs() {
+        this.dogs = new ArrayList&lt;&gt;();
+    } 
+
+    // リストオブジェクトを変更不可の状態で返す記法
+    public List&lt;Dog&gt; getDogs() {
+        return Collections.unmodifiableList(dogs);
+    }
+}
+</code></pre>
+<p>SampleService.java</p>
+<pre><code language="language-java" class="language-java">public class SampleService {
+    /**
+     * このメソッドでは、Dogsに含まれるnameの総文字数を取得したい
+     * @param dogs
+     * @return Dogs内のnameの総文字数
+     */
+        public static int sampleMethod(Dogs dogs) {
+            /**
+             * 以下、処理部分
+             */
+        }
+}
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Enum" duration="0">
+        <p>Enumは列挙型とも呼ばれ、区分定数の一覧を宣言する用途でよく使われています。</p>
+<pre><code language="language-java" class="language-java">public enum Country {
+    America,
+    China,
+    Japan,
+    Germany,
+    TheUnitedKingdom,
+}
+
+</code></pre>
+<p>列挙型は、Java以外の言語でもよく用意されていますが、 Javaでは列挙型もクラスとして扱われます。 なので、</p>
+<pre><code>区分ごとの値をインスタンス変数に保持する
+区分ごとに異なるロジックをメソッドとして記述することができる
+</code></pre>
+<p>といった使い方ができます。</p>
+<p>やり方としては、</p>
+<p>Country.java</p>
+<pre><code language="language-java" class="language-java">public enum Country {
+
+    /**
+    * ()でコンストラクタに引数を渡す
+    */
+    America(1, &#34;アメリカ&#34;),
+    China(86, &#34;中国&#34;),
+    Japan(81, &#34;日本&#34;),
+    Germany(49, &#34;ドイツ&#34;),
+    TheUnitedKingdom(44, &#34;イギリス&#34;),
+
+    ;　　　// セミコロンで要素とクラス定義を区切る
+    
+    private int code; // カントリーコード
+    private String japaneseName; // 日本語名
+
+    /**
+    * コンストラクタ
+    * かならずprivate指定でなければならない
+    */
+    private Country (int code, String japaneseName) {
+        this.code = code;
+        this.japaneseName = japaneseName;
+    }
+
+    public int getCode(){
+        return code;
+    }
+
+    public String getJapaneseName(){
+        return japaneseName;
+    }
+}
+</code></pre>
+<p>1つ注意しないといけないのが、 enumのコンストラクタは必ずprivate指定でないと行けない点で、 private以外を指定した場合はコンパイルエラーとなる。 これはenumの要素が新規生成されるのを防ぐためである。</p>
+<p>Country.javaを使う側のコード</p>
+<pre><code language="language-java" class="language-java">Country c = Country.China;
+int code = c.getCode();
+String japaneseName = c.getJapaneseName();
+</code></pre>
+<p>このように、区分ごとに異なる処理（業務ロジック）を、区分ごとに別のクラスに独立させると、 オブジェクト指向らしいコードの整理ができます。 つまり、どこに何が書いてあるかがわかりやすくなるとともに、 新しく機能追加する際に、<strong>どこに書くべきなのか</strong>がわかりやすくなります。</p>
+<p>また、区分オブジェクトを活用することによって、 switch文やif文を使った条件分岐を減らすことも可能です。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="テストの作り方" duration="0">
+        <p>プログラムのテストでは、用意した入力に対して期待通りの出力が得られるか確認をします。 この確認を行うためのプログラムを書くために、Javaでは標準的にJUnitを使います。</p>
+<h2 is-upgraded>JUnitのセットアップと実行</h2>
+<p>テストを作成したいクラスを開いている状態で、 <strong>Generate</strong>（または、Alt + Insert  or  Command + N）を押して、 <strong>Test...</strong>　を選択する。</p>
+<p class="image-container"><img alt="参考画像1" src="img/19508ff92b196e76.png"></p>
+<p>以下のようなポップアップが出るので、OKを押す。</p>
+<p class="image-container"><img alt="参考画像2" src="img/a503e76bc8a83c17.png"></p>
+<p>これで、src/test下にテストクラスを作ることができます。 （作成される場所は、mainパッケージと同様の配置になります。）</p>
+<p class="image-container"><img alt="参考画像3" src="img/7b7c17c762667e7e.png"></p>
+<h2 is-upgraded>テストケースの実装</h2>
+<p>テストクラス内に次の行を加えてテストメソッドを実装します。</p>
+<pre><code language="language-java" class="language-java">@Test
+void テストケースのサンプル() {
+    assertEquals(6, 4 + 2);
+}
+</code></pre>
+<p>assertEqualsは、<strong>アサーションメソッド</strong>と呼ばれるメソッドであり、 実行結果が期待した値になっているか確認・検証するためのメソッドです。</p>
+<p>第１引数に期待する値を、第２引数に実際の値（クラスやメソッドで検証したい値）を入れます。</p>
+<p>他のアサーションメソッドを使って、自分の書いたプログラムが 意図した通りに動作しているか確認・検証することがテストを作る目的の１つです。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="テスト駆動開発" duration="0">
+        <p>テスト駆動開発（TDD）とは、実装よりも先にテストを書くという手法のことです。 実装前にテストを書くことで、オブジェクトの使われ方（振る舞い）をあらかじめ定めておくなど、 具体的な実装とは切り離した視点でクラスやメソッドについて考えることができます。</p>
+<p>例えば、あるアプリケーションにおいて、「Moneyは負の数にはならず、100万を超えることもない」 ということが業務の中でわかっていたとします。 ここで、Money用のテストクラス（MoneyTest.java）を作成し、その中に以下のようなテストケース を実装します。</p>
+<p>MoneyTest.java</p>
+<pre><code language="language-java" class="language-java">class MoneyTest {
+
+    @Test
+    void Moneyが負の数でインスタンス化できない() {
+        assertThrows(IllegalArgumentException.class,
+                () -&gt; new Money(-1));
+    }
+}
+</code></pre>
+<p>次に、テストケースを満たすようなMoneyクラスを実装します。</p>
+<pre><code language="language-java" class="language-java">public class Money {
+
+    private final int amount;
+
+    public Money(int amount) {
+        if (amount &lt; 0 || amount &gt; 1000000) throw new IllegalArgumentException();
+        this.amount = amount;
+    }
+}
+</code></pre>
+<p>ここで、テストケースを実行すると成功していることが確認できると思います。</p>
+<p class="image-container"><img alt="参考画像４" src="img/40bf97bc3d8d11e5.png"></p>
+<p>ここで気づいて欲しいことは、このMoneyクラスを使うところに、<strong>Moneyに関する異常値チェックが必要なくなる</strong> という点です。なぜなら、Moneyは異常な値でインスタンス化されず、final（イミュータブル）にしているので、 異常な値を持っていることが絶対にないようにクラスを設計したからです。</p>
+<p>防御的プログラミング的な思考では、「相手のクラスが何をするか分からない」という体で、 お互いに異常な値が入ってこないか、その都度チェックするようなコードを書きます。 しかし、これでは特定のクラスを使っている箇所にて重複したコードが書かれ、 ルールに変更が生じた場合に、修正箇所が膨大になってしまいます。</p>
+<p>このように、オブジェクトだけではなく、アプリケーションサービス（XxxService.java）における オブジェクトの使われ方をあらかじめ定めることができるので、 初期の設計や集団開発において、役に立てることもできます。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="演習3" duration="0">
+        <p>以下のテストを満たすような、Student.javaを書いてください。</p>
+<p>StudentTest.java</p>
+<pre><code language="language-java" class="language-java">class StudentTest {
+
+    @Test
+    void StudentのstudentIdが0以下の時はインスタンス化できない() {
+        assertThrows(IllegalArgumentException.class,
+                () -&gt; new Student(-1, &#34;ChitoseTarou&#34;));
+    }
+
+    @Test
+    void StudentのstudentNameがnullの時はインスタンス化できない() {
+        assertThrows(NullPointerException.class,
+                () -&gt; new Student(10, null));
+    }
+
+}
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
