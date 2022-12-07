@@ -53,6 +53,7 @@
       <google-codelab-step label="演習１" duration="0">
         <p>以下で示すコードには、複数の問題があります。</p>
 <p>コードに含まれている問題点を指摘した上で、 改善したクラスを作成してください。（改善箇所や方法は１つとは限りません）</p>
+<p>追記事項 ・Cardは、トランプのカードです。</p>
 <p>Card.java</p>
 <pre><code language="language-java" class="language-java">public class Card {
 
@@ -69,8 +70,8 @@
 <pre><code language="language-java" class="language-java">public class Calculator {
 
     /**
-     * 10以上の数字であれば10に変換して返すメソッド
-     * @param card
+     * 10以上の数字であれば10を返すメソッド
+     * @param card　
      * @return 1 ~ 10の整数
      */
     public static int getScore(Card card) {
@@ -118,9 +119,10 @@
       </google-codelab-step>
     
       <google-codelab-step label="演習２" duration="0">
-        <p>以下に示すコードを読み取り、 SampleService.java内のsampleMethodの処理を完成させよ。</p>
+        <p>以下に示すコードを読み取り、 SampleService.java内のsampleMethodの処理を完成させよ。 (Main.javaは実行用のクラスです)</p>
 <p>Dog.java</p>
 <pre><code language="language-java" class="language-java">public class Dog {
+
     private final String name;
     private final int age;
 
@@ -132,37 +134,83 @@
 </code></pre>
 <p>Dogs.java</p>
 <pre><code language="language-java" class="language-java">public class Dogs {
+
     private List&lt;Dog&gt; dogs;
 
     public Dogs() {
         this.dogs = new ArrayList&lt;&gt;();
-    } 
+    }
 
-    // リストオブジェクトを変更不可の状態で返す記法
+    // リストオブジェクトを変更不可の状態で返す
     public List&lt;Dog&gt; getDogs() {
         return Collections.unmodifiableList(dogs);
     }
+
+    public void addNewDog(Dog dog) {
+        this.dogs.add(dog);
+    }
 }
 </code></pre>
-<p>SampleService.java</p>
-<pre><code language="language-java" class="language-java">public class SampleService {
+<p>ISampleService.java</p>
+<pre><code language="language-java" class="language-java">public interface ISampleService {
+
+    /**
+     * 第１引数dogsに、第２引数dogを追加する
+     *
+     * @param dogs
+     * @param dog
+     */
+    void addDog(Dogs dogs, Dog dog);
+
     /**
      * このメソッドでは、Dogsに含まれるnameの総文字数を取得したい
+     *
      * @param dogs
      * @return Dogs内のnameの総文字数
      */
-        public static int sampleMethod(Dogs dogs) {
-            /**
-             * 以下、処理部分
-             */
-        }
+    int sampleMethod(Dogs dogs);
+}
+</code></pre>
+<p>SampleService.java</p>
+<pre><code language="language-java" class="language-java">public class SampleService implements ISampleService {
+
+    private final Dogs dogs = new Dogs();
+
+    @Override
+    public void addDog(Dogs dogs, Dog dog) {
+        dogs.addNewDog(dog);
+    }
+
+    @Override
+    public int sampleMethod(Dogs dogs) {
+        /**
+         * 以下、処理部分
+         */
+    }
+}
+</code></pre>
+<p>Main.java</p>
+<pre><code language="language-java" class="language-java">public class Main {
+
+    public static void main(String[] args) {
+
+        var sampleService = new SampleService();
+        var dogs = new Dogs();
+
+        sampleService.addDog(dogs, new Dog(&#34;poti&#34;, 5));
+        sampleService.addDog(dogs, new Dog(&#34;wanwan&#34;, 8));
+
+        var counter = sampleService.sampleMethod(dogs);
+        System.out.println(&#34;総文字数は&#34; + counter);
+        // 出力：10
+    }
 }
 </code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Enum" duration="0">
+      <google-codelab-step label="Enumと区分オブジェクト" duration="0">
         <p>Enumは列挙型とも呼ばれ、区分定数の一覧を宣言する用途でよく使われています。</p>
 <pre><code language="language-java" class="language-java">public enum Country {
     America,
@@ -177,7 +225,7 @@
 <pre><code>区分ごとの値をインスタンス変数に保持する
 区分ごとに異なるロジックをメソッドとして記述することができる
 </code></pre>
-<p>といった使い方ができます。</p>
+<p>といった使い方ができます。この手法を<strong>区分オブジェクト</strong>と呼びます。</p>
 <p>やり方としては、</p>
 <p>Country.java</p>
 <pre><code language="language-java" class="language-java">public enum Country {
@@ -283,24 +331,29 @@ void テストケースのサンプル() {
       </google-codelab-step>
     
       <google-codelab-step label="演習3" duration="0">
-        <p>以下のテストを満たすような、Student.javaを書いてください。</p>
+        <p>以下のテストを満たすような、Human.javaを書いてください。</p>
 <p>StudentTest.java</p>
-<pre><code language="language-java" class="language-java">class StudentTest {
+<pre><code language="language-java" class="language-java">class HumanTest {
 
     @Test
-    void StudentのstudentIdが0以下の時はインスタンス化できない() {
+    void HumanのhumanIdが0以下の時はインスタンス化できない() {
         assertThrows(IllegalArgumentException.class,
-                () -&gt; new Student(-1, &#34;ChitoseTarou&#34;));
+                () -&gt; new Human(-1, &#34;ChitoseTarou&#34;, Age.ADULT));
     }
 
     @Test
-    void StudentのstudentNameがnullの時はインスタンス化できない() {
+    void HumanのhumanNameがnullの時はインスタンス化できない() {
         assertThrows(NullPointerException.class,
-                () -&gt; new Student(10, null));
+                () -&gt; new Human(10, null, Age.CHILD));
     }
 
+    @Test
+    void HumanのAgeを変化させることができる() {
+        var human = new Human(1, &#34;Titose Hikari&#34;, Age.CHILD);
+        human.grow();
+        assertEquals(Age.ADULT, human.getAge());
+    }
 }
-
 </code></pre>
 
 
