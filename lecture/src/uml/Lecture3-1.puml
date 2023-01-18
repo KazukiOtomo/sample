@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package lecture12.problem1{
+
+    class Price{
+        - value:int
+    }
+
+    class MerchandiseId{
+        - value:Long
+    }
+
+    class Merchandise{
+        - merchandiseId:MerchandiseId
+        - price:Price
+    }
+
+    class Stock{
+        - stock:List<Merchandise>
+    }
+
+    class PurchaseService{
+    --
+        + select(stock:Stock, merchandiseId:MerchandiseId) : Merchandise
+        + buy(stock:Stock, merchandiseId:MerchandiseId) : Price
+    }
+
+    Merchandise "1" o-- "1" MerchandiseId
+    Merchandise "1" o-- "1" Price
+    Stock "1" -- "0..." Merchandise
+}
+@enduml
