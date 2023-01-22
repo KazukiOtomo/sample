@@ -1,6 +1,5 @@
 package com.practice.linebot.replier;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
@@ -25,8 +24,7 @@ public class PrepareMessage implements Replier {
     }
 
     @Override
-    public Message reply() throws JsonProcessingException {
-        prepareService.register(this.prepareField);
+    public Message reply() {
         return new TextMessage(CreateMessage(this.prepareField));
     }
 

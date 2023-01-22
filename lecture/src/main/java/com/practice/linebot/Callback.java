@@ -1,6 +1,5 @@
 package com.practice.linebot;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
@@ -38,23 +37,24 @@ public class Callback {
     }
 
     @EventMapping
-    public Message handleMessage(MessageEvent<TextMessageContent> event) throws JsonProcessingException {
+    public Message handleMessage(MessageEvent<TextMessageContent> event) {
         var message = event.getMessage().getText();
 
         switch (message) {
-            case "開始":
+            case "開始" -> {
                 this.prepareField = prepareService.prepare();
-
                 var prepareMessage = new PrepareMessage(event, prepareService, this.prepareField);
                 return prepareMessage.reply();
-            case "ヒット":
+            }
+            case "ヒット" -> {
                 this.playfield = new PlayField(this.prepareField);
-
                 var hitMessage = new HitMessage(event, playService, this.prepareField);
                 return hitMessage.reply();
-            case "勝負":
+            }
+            case "勝負" -> {
                 var resultMessage = new ResultMessage(event, showDownService, this.playfield);
                 return resultMessage.reply();
+            }
         }
 
         return new TextMessage("該当文字列なし");
