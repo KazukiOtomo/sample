@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public class PrepareField {
 
+    GameId gameId;
     final Player player;
     final Dealer dealer;
     final Deck deck;
@@ -15,4 +16,7 @@ public class PrepareField {
         this.dealer = new Dealer(deck);
     }
 
+    public void setGameId(GameId gameId) {
+        this.gameId = gameId;
+    }
 }

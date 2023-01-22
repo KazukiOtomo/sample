@@ -2,9 +2,9 @@ package com.practice.domain.prepare;
 
 import lombok.Getter;
 
+@Getter
 public class Dealer {
 
-    @Getter
     final Hand hand;
 
     public Dealer(final Deck deck) {

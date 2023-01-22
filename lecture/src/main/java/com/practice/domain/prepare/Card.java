@@ -15,6 +15,6 @@ public class Card {
     }
 
     public String getMessageContent() {
-        return this.mark.toString() + "," + this.getNumber().getValue();
+        return this.mark.name() + "," + this.getNumber().getValue();
     }
 }

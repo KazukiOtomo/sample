@@ -1,8 +1,7 @@
 package com.practice.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.practice.domain.prepare.PrepareField;
 import com.practice.domain.prepare.IPrepareService;
+import com.practice.domain.prepare.PrepareField;
 import com.practice.repository.IPrepareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +18,7 @@ public class PrepareService implements IPrepareService {
 
     @Override
     public PrepareField prepare() {
-        return new PrepareField();
-    }
-
-    @Override
-    public void register(final PrepareField prepareField) throws JsonProcessingException {
-        prepareRepository.register(prepareField);
+        var prepareField = prepareRepository.register(new PrepareField());
+        return prepareField;
     }
 }
