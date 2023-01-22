@@ -11,7 +11,6 @@ public class ShowDownService implements IShowDownService {
     @Override
     public boolean isPlayerWin(ShowDownField showDownField) {
         showDownField.getDealer().drawOver17(showDownField.getDeck());
-        var isPlayerWin = JudgeRule.judgementWinner(showDownField);
-        return isPlayerWin;
+        return JudgeRule.judgementWinner(showDownField);
     }
 }

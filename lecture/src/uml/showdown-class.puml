@@ -5,6 +5,17 @@ skinparam defaultFontName Cica
 
 package domain.showDown {
 
+    interface IShowDownService{
+        --
+        isPlayerWin(showDownField:ShowDownField):boolean
+    }
+
+    class ShowDownField{
+        -player:Player
+        -dealer:Dealer
+        -deck:Deck
+    }
+
     class Dealer {
         -hand : Hand
         --

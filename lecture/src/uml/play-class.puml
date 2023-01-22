@@ -4,7 +4,7 @@
 skinparam defaultFontName Cica
 
 package domain.play {
-    class Field{
+    class PlayField{
         -player : Player
         -dealer : Dealer
         -deck : Deck
@@ -32,6 +32,11 @@ package domain.play {
         -mark : Mark
         --
         +getContent():String
+    }
+
+    interface IPlayService {
+        --
+        hit(playField:PlayField):Card
     }
 
     Hand "1" --o "1" Player

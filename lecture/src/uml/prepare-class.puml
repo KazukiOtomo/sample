@@ -7,7 +7,6 @@ package domain.prepare {
 
     interface IPrepareService{
         prepare() : PrepareField
-        register(preparefield : PrepareField):void
     }
 
     class PrepareField {
