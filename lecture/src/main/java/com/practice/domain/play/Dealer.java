@@ -1,10 +1,8 @@
 package com.practice.domain.play;
 
+import com.practice.domain.rule.ScoreRule;
 import lombok.Getter;
 
-/**
- * 判定ロジックは"複雑"なので、17を超えるまで引く動作はshowDownコンテキストに分離する
- */
 @Getter
 public class Dealer {
 
@@ -12,6 +10,15 @@ public class Dealer {
 
     public Dealer(com.practice.domain.prepare.Dealer dealer) {
         this.hand = new Hand(dealer.getHand());
+    }
+
+    public void drawOver17(Deck deck) {
+        int score = ScoreRule.getScore(this.hand);
+        while (score < 17) {
+            var card = deck.getTop();
+            this.hand.getCards().add(card);
+            score = ScoreRule.getScore(this.hand);
+        }
     }
 
 }

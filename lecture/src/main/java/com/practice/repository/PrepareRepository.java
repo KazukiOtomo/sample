@@ -24,8 +24,8 @@ public class PrepareRepository implements IPrepareRepository {
         // FIXME:ここ、もうちょっと綺麗にできる気がする
         var playerId = createPlayer();
         registerHand(prepareField.getPlayer().getHand(), playerId);
-        var dealer_id = createDealer();
-        registerHand(prepareField.getDealer().getHand(), dealer_id);
+        var dealerId = createDealer();
+        registerHand(prepareField.getDealer().getHand(), dealerId);
 
         var sql = """
                 INSERT INTO game(player_id, dealer_id)
@@ -33,7 +33,7 @@ public class PrepareRepository implements IPrepareRepository {
                 RETURNING game_id              
                 """;
         var gameId = jdbc.queryForObject(sql, Long.class,
-                playerId, dealer_id);
+                playerId, dealerId);
 
         prepareField.setGameId(new GameId(gameId));
         return prepareField;

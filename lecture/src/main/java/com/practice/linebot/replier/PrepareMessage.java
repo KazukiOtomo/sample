@@ -4,6 +4,7 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
+import com.practice.domain.prepare.Card;
 import com.practice.domain.prepare.IPrepareService;
 import com.practice.domain.prepare.PrepareField;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,12 @@ public class PrepareMessage implements Replier {
     private String CreateMessage(PrepareField prepareField) {
         var playerContent = "プレイヤー側：\n" +
                 prepareField.getPlayer().getHand().getCards().stream()
-                        .map(card -> card.getMessageContent())
+                        .map(Card::getMessageContent)
                         .collect(Collectors.joining("\n"));
 
         var dealerContent = "ディーラー側：\n" +
                 prepareField.getDealer().getHoleCard().getMessageContent();
 
-        return playerContent + "\n" + dealerContent + "\n";
+        return playerContent + "\n" + dealerContent;
     }
 }

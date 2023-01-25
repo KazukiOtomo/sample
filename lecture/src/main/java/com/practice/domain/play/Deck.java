@@ -13,6 +13,6 @@ public class Deck {
     }
 
     public Card getTop() {
-        return this.cards.remove(0);
+        return this.cards.get(0);
     }
 }

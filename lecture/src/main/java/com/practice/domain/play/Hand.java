@@ -2,7 +2,6 @@ package com.practice.domain.play;
 
 import com.practice.domain.prepare.Card;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Hand {
@@ -23,6 +22,6 @@ public class Hand {
     }
 
     public List<Card> getCards() {
-        return Collections.unmodifiableList(cards);
+        return cards;
     }
 }
