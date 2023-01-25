@@ -1,7 +1,6 @@
 package com.practice.domain.prepare;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Hand {
@@ -29,8 +28,7 @@ public class Hand {
         return this.cards.get(0);
     }
 
-    // 参照不可のリストにして返す
     public List<Card> getCards() {
-        return Collections.unmodifiableList(cards);
+        return cards;
     }
 }

@@ -10,7 +10,6 @@ import com.practice.domain.play.IPlayService;
 import com.practice.domain.play.PlayField;
 import com.practice.domain.prepare.IPrepareService;
 import com.practice.domain.prepare.PrepareField;
-import com.practice.domain.showdown.IShowDownService;
 import com.practice.linebot.replier.HitMessage;
 import com.practice.linebot.replier.PrepareMessage;
 import com.practice.linebot.replier.ResultMessage;
@@ -23,17 +22,15 @@ public class Callback {
 
     final IPrepareService prepareService;
     final IPlayService playService;
-    final IShowDownService showDownService;
     static final Logger log = LoggerFactory.getLogger(Callback.class);
 
     private PrepareField prepareField;
     private PlayField playfield;
 
     @Autowired
-    public Callback(IPrepareService prepareService, IPlayService playService, IShowDownService showDownService) {
+    public Callback(IPrepareService prepareService, IPlayService playService) {
         this.prepareService = prepareService;
         this.playService = playService;
-        this.showDownService = showDownService;
     }
 
     @EventMapping
@@ -47,12 +44,25 @@ public class Callback {
                 return prepareMessage.reply();
             }
             case "ヒット" -> {
+                // ゲームの状態管理の歪さがここに出てきている気がする
+                if (prepareField == null) return new TextMessage("ゲームを開始していません");
+
                 this.playfield = new PlayField(this.prepareField);
                 var hitMessage = new HitMessage(event, playService, this.prepareField);
                 return hitMessage.reply();
             }
             case "勝負" -> {
-                var resultMessage = new ResultMessage(event, showDownService, this.playfield);
+                ResultMessage resultMessage;
+                // 同上
+                if (prepareField == null) return new TextMessage("ゲームを開始していません");
+                if (playfield == null) {
+                    resultMessage = new ResultMessage(event, playService, new PlayField(this.prepareField));
+                } else {
+                    resultMessage = new ResultMessage(event, playService, this.playfield);
+                }
+                prepareField = null;
+                playfield = null;
+
                 return resultMessage.reply();
             }
         }
